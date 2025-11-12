@@ -17,9 +17,9 @@ function getUserByRollNo($rollNo) {
     return $result->fetch_assoc();
 }
 
-function signup($rollNo, $password) {
+function signup($rollNo, $password, $email = null) {
     global $conn;
-    $sql = "SELECT password FROM users WHERE roll_no = ?";
+    $sql = "SELECT password, email FROM users WHERE roll_no = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $rollNo);
     $stmt->execute();
@@ -27,6 +27,12 @@ function signup($rollNo, $password) {
     if ($result->num_rows === 0) return ['error' => 'User not found'];
     $row = $result->fetch_assoc();
     if (!empty($row['password'])) return ['error' => 'Password already set for this user'];
+    if (empty($row['email']) && $email) {
+      
+        $updateEmail = $conn->prepare("UPDATE users SET email = ? WHERE roll_no = ?");
+        $updateEmail->bind_param('ss', $email, $rollNo);
+        $updateEmail->execute();
+    }
     $hashed = password_hash($password, PASSWORD_BCRYPT);
     $update = $conn->prepare("UPDATE users SET password = ? WHERE roll_no = ?");
     $update->bind_param('ss', $hashed, $rollNo);

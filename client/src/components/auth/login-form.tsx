@@ -131,10 +131,10 @@ export const LoginForm = () => {
         return;
       }
       try {
-  const res = await fetch(`${API_BASE}/auth.php/signup`, {
+        const res = await fetch(`${API_BASE}/auth.php/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ rollNo: signupData.departmentId, password: signupData.password })
+          body: JSON.stringify({ rollNo: signupData.departmentId, password: signupData.password, email: signupData.registerEmail })
         });
         const data = await res.json();
         if (res.ok) {
@@ -287,7 +287,7 @@ export const LoginForm = () => {
                     className="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                     placeholder="name@nscet.org"
                     value={signupData.registerEmail}
-                    disabled
+                    onChange={e => setSignupData(prev => ({ ...prev, registerEmail: e.target.value }))}
                     required
                   />
                 </div>
