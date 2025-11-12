@@ -17,7 +17,7 @@ function getUserByRollNo($rollNo) {
     return $result->fetch_assoc();
 }
 
-function signup($rollNo, $password, $email = null) {
+function signup($rollNo, $password, $email) {
     global $conn;
     $sql = "SELECT password, email FROM users WHERE roll_no = ?";
     $stmt = $conn->prepare($sql);

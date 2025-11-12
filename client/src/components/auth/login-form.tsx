@@ -107,7 +107,6 @@ export const LoginForm = () => {
         if (res.ok) {
           setAuthLogin(data.token); 
           toast.success("Login successful!", { position: "top-center" });
-     
           const role = data.user.role_name;
           if (role === "student") navigate("/student");
           else if (role === "faculty") navigate("/faculty");
