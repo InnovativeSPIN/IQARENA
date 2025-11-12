@@ -70,7 +70,7 @@ function login($rollNo, $password) {
     $payload = [
         'id' => $user['id'],
         'roll_no' => $user['roll_no'],
-        'role' => $user['role_name'],
+        'role_name' => $user['role_name'],
         'exp' => time() + 60*60*24 
     ];
     $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
