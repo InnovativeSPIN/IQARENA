@@ -42,7 +42,6 @@ function signup($rollNo, $password, $email) {
     if ($emailUpdated) {
         $message .= ' Email updated.';
     }
-   
     $stmt2 = $conn->prepare("SELECT roll_no, email FROM users WHERE roll_no = ?");
     $stmt2->bind_param('s', $rollNo);
     $stmt2->execute();
@@ -66,8 +65,21 @@ function login($rollNo, $password) {
     $user = $result->fetch_assoc();
     if (empty($user['password'])) return ['error' => 'Password not set. Please sign up.'];
     if (!password_verify($password, $user['password'])) return ['error' => 'Invalid password'];
-    // JWT generation would go here (stub)
-    return ['success' => true, 'user' => $user];
+  
+    $key = 'nscet123'; 
+    $payload = [
+        'id' => $user['id'],
+        'roll_no' => $user['roll_no'],
+        'role' => $user['role_name'],
+        'exp' => time() + 60*60*24 
+    ];
+    $header = base64_encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
+    $payload_enc = base64_encode(json_encode($payload));
+    $signature = hash_hmac('sha256', "$header.$payload_enc", $key, true);
+    $signature_enc = base64_encode($signature);
+    $token = "$header.$payload_enc.$signature_enc";
+
+    return ['success' => true, 'user' => $user, 'token' => $token];
 }
 
 function updateProfile($userId, $name, $email) {

@@ -46,7 +46,6 @@
     }
 
     if ($method === 'PUT' && strpos($uri, '/profile') !== false) {
-        // Auth middleware stub: $userId from token/session
         $data = json_decode(file_get_contents('php://input'), true);
         $userId = $data['user_id'] ?? 0;
         $name = $data['name'] ?? '';

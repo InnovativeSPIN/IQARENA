@@ -14,13 +14,15 @@ import SuperAdminDashboardPage from "./pages/SuperAdminDashboardPage";
 import QuizPage from "./pages/QuizPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
 import NotFound from "./pages/NotFound";
-import { AuthProvider, useAuth } from "@/components/auth/auth-context";
+import { AuthProvider } from "@/components/auth/auth-context";
+import { useAuth } from "@/components/auth/useAuth";
+
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 
-// Redirect logic for login page
+
 function LoginRedirect() {
   const { isAuthenticated, role } = useAuth();
   if (isAuthenticated) {
@@ -40,34 +42,30 @@ const App = () => (
   <HotToaster position="top-center" />
   <Toaster />
       <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LoginRedirect />} />
-            <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
-              <Route path="/student" element={<StudentDashboardPage />} />
-            </Route>
-            <Route element={<ProtectedRoute allowedRoles={["faculty"]} />}>
-              <Route path="/faculty" element={<FacultyDashboard />} />
-            </Route>
-            <Route element={<ProtectedRoute allowedRoles={["hod"]} />}>
-              <Route path="/hod" element={<HODDashboardPage />} />
-            </Route>
-            <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-              <Route path="/admin" element={<AdminDashboardPage />} />
-            </Route>
-            <Route element={<ProtectedRoute allowedRoles={["super-admin"]} />}>
-              <Route path="/super-admin" element={<SuperAdminDashboardPage />} />
-            </Route>
-            <Route element={<ProtectedRoute />}>
-              <Route path="/quiz/:id" element={<QuizPage />} />
-              <Route path="/leaderboard" element={<LeaderboardPage />} />
-            </Route>
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+      <Routes>
+        <Route path="/" element={<LoginRedirect />} />
+        <Route element={<ProtectedRoute allowedRoles={["student"]} />}>
+          <Route path="/student" element={<StudentDashboardPage />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["faculty"]} />}>
+          <Route path="/faculty" element={<FacultyDashboard />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["hod"]} />}>
+          <Route path="/hod" element={<HODDashboardPage />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminDashboardPage />} />
+        </Route>
+        <Route element={<ProtectedRoute allowedRoles={["super-admin"]} />}>
+          <Route path="/super-admin" element={<SuperAdminDashboardPage />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/quiz/:id" element={<QuizPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+        </Route>
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </TooltipProvider>
   </QueryClientProvider>
 );

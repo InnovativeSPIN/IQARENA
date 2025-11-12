@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
+import { AuthContext } from "./AuthContextInstance";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import { setLogoutCallback } from "@/lib/auth-fetch";
@@ -13,17 +15,17 @@ export interface AuthContextType {
   logout: (showExpiredMessage?: boolean) => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState<UserRole>(null);
   const [token, setToken] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   // Check if token is expired
   const isTokenExpired = (token: string): boolean => {
     try {
-      const decoded: any = jwtDecode(token);
+  const decoded = jwtDecode<{ exp: number; role_name?: string }>(token);
       const currentTime = Date.now() / 1000;
       return decoded.exp < currentTime;
     } catch {
@@ -37,13 +39,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setRole(null);
     setToken(null);
     localStorage.removeItem("jwt_token");
-    
     if (showExpiredMessage) {
       toast.error("Session expired. Please login again.");
     }
   };
 
-  // Restore session from localStorage and check expiration
   useEffect(() => {
     const storedToken = localStorage.getItem("jwt_token");
     if (storedToken) {
@@ -53,11 +53,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           logout(true);
           return;
         }
-
-        const decoded: any = jwtDecode(storedToken);
+        const decoded = jwtDecode<{ exp: number; role_name?: string }>(storedToken);
         if (decoded && decoded.role_name) {
           setIsAuthenticated(true);
-          setRole(decoded.role_name);
+          setRole(decoded.role_name as UserRole);
           setToken(storedToken);
         } else {
           logout();
@@ -71,19 +70,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Set up interval to check token expiration every minute
   useEffect(() => {
     if (!token) return;
-
     const checkTokenExpiration = () => {
       if (token && isTokenExpired(token)) {
         logout(true);
       }
     };
-
     // Check immediately
     checkTokenExpiration();
-
     // Set up interval to check every minute
     const interval = setInterval(checkTokenExpiration, 60000);
-
     return () => clearInterval(interval);
   }, [token]);
 
@@ -99,13 +94,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         logout();
         return;
       }
-
-      const decoded: any = jwtDecode(jwtToken);
+      const decoded = jwtDecode<{ exp: number; role_name?: string }>(jwtToken);
       if (decoded && decoded.role_name) {
         setIsAuthenticated(true);
-        setRole(decoded.role_name);
+        setRole(decoded.role_name as UserRole);
         setToken(jwtToken);
         localStorage.setItem("jwt_token", jwtToken);
+        // Role-based redirection
+        if (decoded.role_name === "student") navigate("/student");
+        else if (decoded.role_name === "faculty") navigate("/faculty");
+        else if (decoded.role_name === "hod") navigate("/hod");
+        else if (decoded.role_name === "admin") navigate("/admin");
+        else if (decoded.role_name === "super-admin") navigate("/super-admin");
+        else navigate("/login");
       }
     } catch {
       logout();
@@ -119,8 +120,3 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within AuthProvider");
-  return context;
-};

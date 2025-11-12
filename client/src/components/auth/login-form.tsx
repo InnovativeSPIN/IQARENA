@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const API_BASE = import.meta.env.VITE_API_BASE;
-import { useAuth } from "@/components/auth/auth-context";
+import { useAuth } from "@/components/auth/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -107,13 +107,6 @@ export const LoginForm = () => {
         if (res.ok) {
           setAuthLogin(data.token); 
           toast.success("Login successful!", { position: "top-center" });
-          const role = data.user.role_name;
-          if (role === "student") navigate("/student");
-          else if (role === "faculty") navigate("/faculty");
-          else if (role === "hod") navigate("/hod");
-          else if (role === "admin") navigate("/admin"); 
-          else if (role === "super-admin") navigate("/super-admin"); 
-          else navigate("/login");
         } else {
           toast.error(data.error || "Login failed", { position: "top-center" });
         }
