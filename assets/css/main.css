@@ -1,0 +1,32 @@
+:root {
+    --color-primary: #F97316;
+    --color-primary-hover: #EA580C;
+    --color-secondary: #FF8C00;
+    --color-accent: #FFA500;
+    --color-background: #1A120B;
+    --color-surface: #2C1A0E;
+    --text: #F1F5F9;
+    --text-secondary: #D4A373;
+    --card-border: #4A2F1A;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --gradient-primary: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    --gradient-secondary: linear-gradient(135deg, #FF8C00 0%, #E67700 100%);
+    --gradient-accent: linear-gradient(135deg, #FFA500 0%, #FF7F00 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--color-background);
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 140, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+}

@@ -1,0 +1,200 @@
+:root {
+    --color-primary: #F97316;
+    --color-primary-hover: #EA580C;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6B7280;
+    --color-shadow: rgba(0, 0, 0, 0.08);
+    --color-success: #22C55E;
+    --color-gold: #FBBF24;
+    --color-silver: #9CA3AF;
+    --color-bronze: #D97706;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    background: transparent;
+}
+
+header, main {
+    position: relative;
+    z-index: 10000;
+}
+
+.avatar-badge {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+}
+
+.rank-1 .avatar-badge {
+    background: linear-gradient(135deg, #ffc916, #f59e0b);
+}
+
+.rank-2 .avatar-badge {
+    background: linear-gradient(135deg, #e5e7eb, #9ca3af);
+}
+
+.rank-4 .avatar-badge,
+.rank-5 .avatar-badge,
+.rank-6 .avatar-badge,
+.rank-7 .avatar-badge,
+.rank-8 .avatar-badge,
+.rank-9 .avatar-badge,
+.rank-10 .avatar-badge {
+    background: linear-gradient(135deg, #93c5fd, #3b82f6);
+}
+
+.leaderboard-item {
+    transition: all 0.4s ease;
+    position: relative;
+    padding: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: transparent;
+}
+
+.trophy-img:hover, .medal-img:hover, .award-img:hover {
+    transform: translateY(-10px) scale(1.1);
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.2));
+}
+
+.live-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.trophy-img {
+    width: 120px;
+    height: 120px;
+    animation: bounce 1.2s infinite, glow 1.8s infinite, subtleRotate 3s infinite;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 10;
+}
+
+.medal-img {
+    width: 74px;
+    height: 74px;
+    animation: scaleRotate 1.5s infinite, spin 4s infinite;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 10;
+}
+
+.award-img {
+    width: 74px;
+    height: 74px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes pulseFade {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes colorShift {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(30deg); }
+}
+
+.leaderboard-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    animation: nameGlow 2s ease-in-out infinite;
+    z-index: 10;
+}
+
+.rank-1 .leaderboard-name {
+    color: #f59e0b;
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes nameGlow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+/* Full-page parallax container */
+.full-page-parallax {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: transparent;
+}
+
+.full-page-parallax .parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.full-page-parallax .parallax img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: auto;
+    transform: translateX(-50%) translateZ(0);
+    animation: confetti linear infinite;
+}
+
+@keyframes confetti {
+    0% { top: 100%; }
+    100% { top: -100%; }
+}
+
+.full-page-parallax .parallax img:nth-child(1) {
+    animation-delay: -160s;
+    animation-duration: 40s;
+}
+
+.full-page-parallax .parallax img:nth-child(2) {
+    animation-delay: -120s;
+    animation-duration: 80s;
+}
+
+.full-page-parallax .parallax img:nth-child(3) {
+    animation-delay: -80s;
+    animation-duration: 60s;
+}
+
+.full-page-parallax .parallax img:nth-child(4) {
+    animation-delay: -40s;
+    animation-duration: 50s;
+}
+
+.full-page-parallax .parallax img:nth-child(5) {
+    animation-delay: -20s;
+    animation-duration: 70s;
+}

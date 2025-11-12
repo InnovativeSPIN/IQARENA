@@ -1,0 +1,41 @@
+[03-Sep-2025 09:57:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0' for key 'sub_topics.PRIMARY' in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php:33
+Stack trace:
+#0 /home/nscet/public_html/iqarena/backend/faculty/subTopic.php(33): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php on line 33
+[03-Sep-2025 09:58:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0' for key 'sub_topics.PRIMARY' in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php:33
+Stack trace:
+#0 /home/nscet/public_html/iqarena/backend/faculty/subTopic.php(33): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php on line 33
+[03-Sep-2025 09:59:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0' for key 'sub_topics.PRIMARY' in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php:33
+Stack trace:
+#0 /home/nscet/public_html/iqarena/backend/faculty/subTopic.php(33): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home/nscet/public_html/iqarena/backend/faculty/subTopic.php on line 33
+[03-Sep-2025 10:02:21 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '0' for key 'questions.PRIMARY' in /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php:87
+Stack trace:
+#0 /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php(87): mysqli_stmt->execute()
+#1 {main}
+  thrown in /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php on line 87
+[07-Sep-2025 06:27:06 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.33. in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php:26
+Stack trace:
+#0 /home/nscet/public_html/iqarena/vendor/composer/autoload_real.php(25): require()
+#1 /home/nscet/public_html/iqarena/vendor/autoload.php(22): ComposerAutoloaderInit62e10e6c8df9afc192311b196c75bb33::getLoader()
+#2 /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php(44): require_once('/home/nscet/pub...')
+#3 {main}
+  thrown in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php on line 26
+[07-Sep-2025 06:27:46 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.33. in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php:26
+Stack trace:
+#0 /home/nscet/public_html/iqarena/vendor/composer/autoload_real.php(25): require()
+#1 /home/nscet/public_html/iqarena/vendor/autoload.php(22): ComposerAutoloaderInit62e10e6c8df9afc192311b196c75bb33::getLoader()
+#2 /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php(44): require_once('/home/nscet/pub...')
+#3 {main}
+  thrown in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php on line 26
+[31-Oct-2025 06:32:03 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.33. in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php:26
+Stack trace:
+#0 /home/nscet/public_html/iqarena/vendor/composer/autoload_real.php(25): require()
+#1 /home/nscet/public_html/iqarena/vendor/autoload.php(22): ComposerAutoloaderInit62e10e6c8df9afc192311b196c75bb33::getLoader()
+#2 /home/nscet/public_html/iqarena/backend/faculty/uploadQuestions.php(44): require_once('/home/nscet/pub...')
+#3 {main}
+  thrown in /home/nscet/public_html/iqarena/vendor/composer/platform_check.php on line 26
