@@ -27,17 +27,28 @@ function signup($rollNo, $password, $email = null) {
     if ($result->num_rows === 0) return ['error' => 'User not found'];
     $row = $result->fetch_assoc();
     if (!empty($row['password'])) return ['error' => 'Password already set for this user'];
+    $emailUpdated = false;
     if (empty($row['email']) && $email) {
-      
         $updateEmail = $conn->prepare("UPDATE users SET email = ? WHERE roll_no = ?");
         $updateEmail->bind_param('ss', $email, $rollNo);
         $updateEmail->execute();
+        $emailUpdated = true;
     }
     $hashed = password_hash($password, PASSWORD_BCRYPT);
     $update = $conn->prepare("UPDATE users SET password = ? WHERE roll_no = ?");
     $update->bind_param('ss', $hashed, $rollNo);
     $update->execute();
-    return ['success' => true];
+    $message = 'Password set successfully.';
+    if ($emailUpdated) {
+        $message .= ' Email updated.';
+    }
+   
+    $stmt2 = $conn->prepare("SELECT roll_no, email FROM users WHERE roll_no = ?");
+    $stmt2->bind_param('s', $rollNo);
+    $stmt2->execute();
+    $result2 = $stmt2->get_result();
+    $user = $result2->fetch_assoc();
+    return ['success' => true, 'message' => $message, 'user' => $user];
 }
 
 function login($rollNo, $password) {
