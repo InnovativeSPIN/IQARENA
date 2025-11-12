@@ -1,5 +1,4 @@
 <?php
-// api/controllers/authController.php
 include_once(dirname(__DIR__) . '/config/db.php');
 
 function getUserByRollNo($rollNo) {

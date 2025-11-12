@@ -299,54 +299,46 @@ const StudentDashboard = () => {
 
   // Update profile
   const updateProfile = async (profileData: { name: string; email: string }) => {
-    try {
-      const token = localStorage.getItem('jwt_token');
-      if (!token) throw new Error('No auth token found. Please login.');
-      
-      const res = await fetch(`${API_BASE}/auth/profile`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify(profileData)
-      });
-      
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Failed to update profile");
-      }
-      
-      return data;
-    } catch (error) {
-      throw error;
+    const token = localStorage.getItem('jwt_token');
+    if (!token) throw new Error('No auth token found. Please login.');
+    
+    const res = await fetch(`${API_BASE}/auth/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileData)
+    });
+    
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || "Failed to update profile");
     }
+    
+    return data;
   };
 
   // Reset password
   const resetPassword = async (passwordData: { currentPassword: string; newPassword: string }) => {
-    try {
-      const token = localStorage.getItem('jwt_token');
-      if (!token) throw new Error('No auth token found. Please login.');
-      
-      const res = await fetch(`${API_BASE}/auth/reset-password`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify(passwordData)
-      });
-      
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Failed to reset password");
-      }
-      
-      return data;
-    } catch (error) {
-      throw error;
+    const token = localStorage.getItem('jwt_token');
+    if (!token) throw new Error('No auth token found. Please login.');
+    
+    const res = await fetch(`${API_BASE}/auth/reset-password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(passwordData)
+    });
+    
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || "Failed to reset password");
     }
+    
+    return data;
   };
 
   // Profile handlers
@@ -435,7 +427,7 @@ const StudentDashboard = () => {
       {/* Header */}
       <Header />
 
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
+      <div className=" p-6 space-y-6">
         {/* Welcome Message */}
         <Card>
           <CardContent className="p-3 sticky top-0">
