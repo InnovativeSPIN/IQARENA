@@ -7,7 +7,7 @@
     $method = $_SERVER['REQUEST_METHOD'];
     $uri = $_SERVER['REQUEST_URI'];
 
-    // Simple router logic
+   
     if ($method === 'GET' && preg_match('/\/user\/([\w-]+)/', $uri, $matches)) {
         $rollNo = $matches[1];
         $user = getUserByRollNo($rollNo);
@@ -21,16 +21,17 @@
     }
 
     if ($method === 'POST' && strpos($uri, '/signup') !== false) {
-        $data = json_decode(file_get_contents('php://input'), true);
-        $rollNo = $data['rollNo'] ?? '';
-        $password = $data['password'] ?? '';
-        $result = signup($rollNo, $password);
-        if (isset($result['error'])) {
-            http_response_code(400);
+            $data = json_decode(file_get_contents('php://input'), true);
+            $rollNo = $data['rollNo'] ?? '';
+            $password = $data['password'] ?? '';
+            $email = $data['email'] ?? null;
+            $result = signup($rollNo, $password, $email);
+            if (isset($result['error'])) {
+                http_response_code(400);
+            }
+            echo json_encode($result);
+            exit;
         }
-        echo json_encode($result);
-        exit;
-    }
 
     if ($method === 'POST' && strpos($uri, '/login') !== false) {
         $data = json_decode(file_get_contents('php://input'), true);
